@@ -1,0 +1,35 @@
+﻿body {
+    padding:0;
+    margin:0;
+    background-color:#e0dfdf;
+}
+.headingSlogon {
+    font-family: "Bauhaus 93";
+    margin-left:5px;
+    color:#409d1b;
+}
+.headingSlogon a {
+    text-decoration:none;
+}
+.headingSlogon a:hover{
+    color:#127fea;
+}
+.videoPlayerBody{
+    background-color:#000;
+}
+
+.list-group-item a {
+    
+    pointer-events:none;
+    cursor:default;
+    color: inherit;
+    font-size:14px;
+    text-decoration:none;
+}
+
+.list-group-item:hover {
+    color:#ffffff;
+    font-size:20px;
+    font-weight:bold;
+    background-color:#0b82db;
+}

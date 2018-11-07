@@ -1,0 +1,33 @@
+﻿@model IEnumerable<BusinessLibrary.Classified.Catagory>
+@{
+    ViewBag.Title = "showAllCatagories";
+    Layout = "~/Areas/AdminSide/Views/Shared/_AdminLayOut.cshtml";
+}
+
+<h2>showAllCatagories</h2>
+<p>@Html.ActionLink("Add Catagory", "Create", "Catagory", new { @class = "btn btn-primary" })</p>
+<div class="row">
+
+    <table class="table table-responsive table-hover">
+        <thead class="bg-primary">
+            <tr>
+                <th class="text-center">@Html.DisplayNameFor(m => m.ID)</th>
+                <th class="text-center">@Html.DisplayNameFor(m => m.Name)</th>
+                <th class="text-center">Edit / Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center">@Html.DisplayFor(m => @item.ID)</td>
+                    <td class="text-center">@Html.DisplayFor(m => @item.Name)</td>
+                    <td class="text-center">
+                        @Html.ActionLink("Edit", "EditCatagory", "Catagory", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
+                        @Html.ActionLink("Delete", "Delete", "Catagory", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

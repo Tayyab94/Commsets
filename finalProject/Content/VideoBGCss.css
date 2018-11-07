@@ -1,0 +1,43 @@
+﻿* {
+    padding:0;
+    margin:0;
+}
+
+.bgVid{
+    position:fixed;
+    z-index:-1000;
+    height:100%;
+    width:100%;
+    overflow:hidden;
+    top:0;
+    left:0;
+}
+
+#bgVideo {
+    position:absolute;
+    top:0;
+    left:0;
+    min-height:100%;
+    min-width:100%;
+}
+
+.discriptionBox{
+    background-color:rgba(176, 139, 172, 0.48);
+    box-shadow:1px 1px 28px 2px pink;
+    text-shadow:2px 2px 5px #000000;
+    border-radius:10px;
+    padding:10px;
+    margin:0px 10px;
+}
+.discriptionBox h1 {
+    font-size:60px;
+}
+.discriptionBox a{
+    text-decoration: none;
+    text-decoration-color: #f87070;
+    font-size:20px;
+    color:rgb(143, 255, 91);
+}
+.discriptionBox a:hover {
+    color:#f6f6f6;
+}

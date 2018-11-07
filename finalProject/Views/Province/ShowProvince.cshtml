@@ -1,0 +1,45 @@
+﻿@*@model IEnumerable<BusinessLibrary.Province>*@
+
+@using BusinessLibrary;
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Province>
+
+@{
+    ViewBag.Title = "ShowProvince";
+    Layout = "~/Areas/AdminSide/Views/Shared/_AdminLayOut.cshtml";
+}
+
+<h2>ShowProvince</h2>
+<p>@Html.ActionLink("Add New Prpovince", "AddProvince", "Province", new { @class = "btn btn-primary" })</p>
+<table class="table table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Province</th>
+            <th>Edit/Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => item.ID)</td>
+                <td>@Html.DisplayFor(m => item.Name)</td>
+                <td>@Html.DisplayFor(m => item.Country.Name)</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Province", new { id = item.ID }, null) |
+                @Html.ActionLink("Delete", "Delete", "Province", new { id = item.ID }, null)
+            </td>
+
+        </tr>
+        }
+    </tbody>
+
+</table>
+<div></div>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+<div>
+    @Html.PagedListPager(Model, Page => Url.Action("ShowProvince", new { Page=Page}))
+</div>

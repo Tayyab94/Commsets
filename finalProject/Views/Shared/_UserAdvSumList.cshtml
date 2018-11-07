@@ -1,0 +1,59 @@
+﻿@using finalProject.Models
+
+@model IEnumerable<AdvSumModel>
+
+@if (Model != null)
+{
+    foreach (var n in Model)
+    {
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 sh">
+    <div class="advsum-item">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-toggle right " id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span class="glyphicon glyphicon-option-horizontal" style="background: white; border-radius: 19px; padding: 8px;margin-bottom: 10px; float:right"></span>
+                        </a>
+                        <ul class="dropdown-menu  dropdown-menu-right" aria-labelledby="dropdownMenu1" style="margin-top:22px;">
+                            <li>@Html.ActionLink("Edit","AddSubCatagory","SubCatagory")</li>
+                            <li><a href="/Advertisement/DeteleAdv/@n.Id">Delete</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <img src="@n.ImgUrl" alt="Product" class="img-thumbnail img-responsive" style="height:250px" />
+                    <button type="button" class="btn btn-primary">Detail</button>
+                </div>
+
+            </div>
+        </div>
+    @*<div class="advsum-item">
+            <div class="right">
+                <div class="dropdown">
+                    <a href="#" class="btn btn-default dropdown-toggle right UsrM" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span class="glyphicon glyphicon-option-horizontal"></span>
+                    </a>
+                    <ul class="dropdown-menu " aria-labelledby="dropdownMenu1">
+                        <li><a href="#">Edit</a></li>
+                        <li><a href="#">Delete</a></li>
+                    </ul>
+                </div>
+            </div>
+            <img src="@n.ImgUrl" alt="Product" class="img-thumbnail img-responsive" style="height:250px" />
+        </div>*@
+    @*<div class="advsum-item post">
+            <img src="@n.ImgUrl" alt="Product" class="img-thumbnail img-responsive" style="height:250px" />
+            <h2>@n.Title</h2>
+            <p>@($"PKR.{n.Price}")</p>
+            <div class="advsum-btn bg-primary">@($"Posted Date :{n.postedDate.ToShortDateString()}")</div>
+            <h2 class="text-info text-center">@n.Status</h2>
+
+        </div>*@
+    @*<div class="post-s">
+            <a href="/Advertisement/DetailProduct/@n.Id" class="btn btn-primary btn-lg">Detail</a>
+
+        </div>*@
+</div>
+    }
+}
+

@@ -1,0 +1,128 @@
+﻿@model BusinessLibrary.UserManagement.User
+@using BusinessLibrary.Classified;
+@using finalProject.Models;
+@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Views/Shared/_ClientView.cshtml";
+    List<AdvSumModel> RelatedAdvLst = ViewBag.ListAdv;
+    List<Advertisement> AdvLIST = ViewBag.UAdvList;
+    List<Advertisement> pndingAdv = ViewBag.penddinglist;
+}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-md-12 col-sm-12">
+            <p style="font-size:20px" class="text-center">Profile Image</p>
+            <div class="panel">
+                <div class="panel-heading">
+
+                    <div class="row">
+                        <div class="col-lg-6 col-lg-offset-2">
+                            <img src="@Url.Content(Model.ImgURL)" class="img-responsive img-circle center-block" style="max-height:200px" />
+                            <label style="font-size:25px" class="text-info">@Html.DisplayFor(m => m.FullName, new { @class = "text-info" })</label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h4 class="text-info text-center">Location</h4>
+                            <ul>
+                                <li class="glyphicon glyphicon-map-marker">&nbsp;Country &nbsp;&nbsp;&nbsp; @Html.DisplayFor(m => m.City.Province.Country.Name)</li>
+                                <li class="glyphicon glyphicon-map-marker">&nbsp;City  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.DisplayFor(m => m.City.Name)</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-12">
+                            <h4 class="text-info text-center">Contact</h4>
+                            <ul>
+                                <li class="glyphicon glyphicon-phone">&nbsp;Contact &nbsp;&nbsp;&nbsp; @Html.DisplayFor(x => x.ContactNo)</li>
+                                <li class="glyphicon glyphicon-pencil">&nbsp;Email  &nbsp;&nbsp;@Html.DisplayFor(x => x.EmailID)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel-footer" style="background-color:white">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            @Html.ActionLink(" Edit", "EditUser", "User", new { id = Model.ID }, htmlAttributes: new { @class = "btn btn-primary btn-block glyphicon glyphicon-edit" })
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-8">
+
+            @*@Html.Partial("~/Views/Shared/_UserAdvSumList.cshtml", RelatedAdvLst);*@
+            
+            @{
+                if (pndingAdv.Count != 0)
+                {
+                    <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#CityDiv" aria-expanded="false" aria-controls="CountryDiv" style="margin-top:10px;"><span class="glyphicon glyphicon-tasks"></span> Pendding Post</button>
+                    <div class="collapse" id="CityDiv">
+                        <table class="table table-responsive table-hover">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th class="text-center">ID</th>
+                                    <th class="text-center">Image</th>
+                                    <th class="text-center">Edit</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                @foreach (var pndPost in pndingAdv)
+                                {
+                                    <td>
+                                        @Html.DisplayFor(x => x.ID)
+
+                                    </td>
+
+                                    foreach (var itemPic in pndPost.Images)
+                                    {
+                                        <td>
+                                            <img src="@Url.Content(itemPic.Url)" class="img-responsive img-thumbnail" style="width:200px" />
+                                        </td>
+                                    }
+                                    <td>
+                                        @Html.ActionLink("Edit", "EditPost", "Advertisement", new { id = pndPost.ID }, null)
+                                    </td>
+                                }
+                            </tr>
+                        </table>
+                    </div>
+
+                }
+
+            }
+            @foreach (var n in AdvLIST)
+            {
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="advsum-item">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <div class="dropdown">
+                                    <a href="#" class="dropdown-toggle right " id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <span class="glyphicon glyphicon-option-horizontal" style="background: white; border-radius: 19px; padding: 8px;margin-bottom: 10px; float:right"></span>
+                                    </a>
+                                    <ul class="dropdown-menu  dropdown-menu-right" aria-labelledby="dropdownMenu1" style="margin-top:22px;">
+                                        <li>@Html.ActionLink("Edit", "EditPost", "Advertisement", new { id = n.ID }, null)</li>
+                                        <li><a href="/Advertisement/DeteleAdv/@n.ID">Delete</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                @foreach (var item in n.Images)
+                                {
+                                    <img src="@Url.Content(item.Url)" class="img-thumbnail img-responsive" style="height:250px" />
+                                }
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

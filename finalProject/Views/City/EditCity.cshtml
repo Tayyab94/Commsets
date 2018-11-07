@@ -1,0 +1,46 @@
+﻿@model BusinessLibrary.City
+@{
+    ViewBag.Title = "EditCity";
+    Layout = "~/Areas/AdminSide/Views/Shared/_AdminLayOut.cshtml";
+}
+
+
+<div class="row">
+  
+        <div class="panel bg-success">
+            <div class="panel-heading bg-danger">
+                <h3 class="panel-title text-info text-center">Edit City</h3>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("EditCity", "City", FormMethod.Post, new { id = "CityEdit" }))
+                {
+                       @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true,"",new {@class="text-danger" })
+                    @Html.HiddenFor(m=>m.ID)
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            @Html.LabelFor(m=>m.Name,"City Name",htmlAttributes:new { @class="control-label col-md-3"})
+                            <div class="col-md-9">
+                                @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Province, "Province", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                               
+                              @Html.DropDownListFor(m=>m.Province.ID,(SelectList)ViewBag.ProvinceList, new { @class="form-control"})
+                            </div>
+                        </div>
+                        <div class="form-group">
+                             <div class="col-md-offset-3 col-md-9">
+                                 @*<input  type="submit" class="btn btn-primary glyphicon glyphicon-save" value="Update"/>*@
+                                 <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-save"></span>Update City</button>
+                             </div>
+                        </div>
+                       
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+

@@ -1,0 +1,103 @@
+﻿body {
+    padding:0;
+    margin:0;
+    background-color:#e0dfdf;
+}
+
+.webFontStyle{
+      font-family: "Bauhaus 93";
+}
+
+.headingSlogon {
+    font-family: "Bauhaus 93";
+    margin-left:5px;
+    color:#409d1b;
+}
+.headingSlogon a {
+    text-decoration:none;
+}
+.headingSlogon a:hover{
+    color:#127fea;
+}
+
+.discriptionBody {
+    margin:30px 10px 10px 10px;
+}
+.discriptionBody h3{
+    padding:20px;
+    text-align:justify;
+}
+
+.discriptionBody p{
+    padding:0px 20px 10px 20px;
+    text-align:justify;
+    font-size:20px;
+}
+
+/* the login form style goes below*/
+
+.theLine{
+    /*background-color:#00ff21;*/
+    /*background-color:#83f354;*/
+    background-color:#337ab7;
+    height:5px;
+    margin:-10px;
+}
+.loginFormBody{
+    padding:10px;
+    margin:10px 20px 20px 20px;
+    min-width:300px;
+    box-shadow:0px 1px 6px -1px #000;
+    background-color:#ffffff;
+}
+.theForm{
+    margin-right:10px;
+    padding:10px;
+}
+.fields{
+    border-right:none;
+    border-left:none;
+    border-top:none;
+    /*border-bottom-color:#7de452;*/
+    border-bottom-color:#337ab7;
+    width:100%;
+    margin:10px;
+}
+
+.loginBtn {
+    width:100%;
+    border:none;
+    padding:5px;
+    font-weight:bold;
+    color:#ffffff;
+    /*background-color:#7de452;*/
+    background-color:#337ab7;
+    margin: 50px 10px 10px 10px;
+}
+.loginBtn:hover {
+    color:#ffffff;
+    font-weight:bold;
+    background-color:#64b741;
+    box-shadow: 1px 1px 3px #808080;
+}
+.loginFormSt p {
+    text-align:center;
+}
+.loginFormSt a{
+    text-decoration:none;
+    color:#64b741;
+}
+.loginFormSt a:hover{
+    color:#7de452;
+    font-size:20px;
+}
+.loginFooter {
+    background-color:#2F2F2F;
+    position:fixed;
+    bottom:0;
+    width:100%;
+}
+.loginFooter a {
+    text-align:center;
+}
+

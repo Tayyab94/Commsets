@@ -1,0 +1,57 @@
+﻿@model BusinessLibrary.Classified.Advertisement
+@{
+    ViewBag.Title = "DetailPost";
+    Layout = "~/Areas/AdminSide/Views/Shared/_AdminLayOut.cshtml";
+}
+
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h2 class="panel-title text-center" style="font-size:30px">Product Image</h2>
+                </div>
+                @foreach (var item in Model.Images)
+                {
+                    <div class="panel-body">
+                        <img src="@Url.Content(item.Url)" class="img-responsive img-thumbnail" />
+                    </div>
+                }
+                <a href="/Advertisement/ApproavedPostStatus/@Model.ID" class="btn btn-info btn-block">@Model.Status.Name</a>
+                <a href="/Advertisement/rejectPostStatus/@Model.ID" class="btn btn-info btn-block">Reject Post</a>
+            </div>
+        </div>
+        <div class="col-lg-4" style="margin-top: 60px;">
+            <div class="col-lg-12">
+                <div class="panel">
+                    <div class="panel-heading bg-primary">
+                        <h2 class="panel-title text-center">Product Detail</h2>
+                    </div>
+                    <div class="panel-body">
+                        <label class="text-info text-left">SubCatagory</label>: @Html.DisplayFor(m => m.SubCatagory.Name)<br />
+                        <label class="text-info text-left">Price</label>: @Html.DisplayFor(m => m.price)<br />
+                        <label class="text-info text-left">Posted Date</label>: @Html.DisplayFor(m => m.PostedOn).ToString()<br />
+                        <label class="text-info text-left">Description</label>:@Html.DisplayFor(m => m.Description)
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="panel">
+                    <div class="panel-heading bg-primary">
+                        <h2 class="panel-title text-center">User Detail</h2>
+                    </div>
+                    <div class="panel-body">
+                        <label class="text-info text-left">User Name</label>:      @Html.DisplayFor(m => m.User.FullName)<br />
+                        <label class="text-info text-left">Contact Number</label>: @Html.DisplayFor(m => m.User.ContactNo)<br />
+                        <label class="text-info text-left">User's Email</label>:   @Html.DisplayFor(m => m.User.EmailID)<br />
+                        <label class="text-info text-left">User's Address</label>: @Html.DisplayFor(m => m.User.Address)<br />
+                        <label class="text-info text-left">User's City</label>:    @Html.DisplayFor(m => m.User.City.Name)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

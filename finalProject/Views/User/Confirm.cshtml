@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Confirm";
+    Layout = "~/Views/Shared/_ClientView.cshtml";
+}
+<br /><br />
+<div class="alert alert-warning" id="previous">
+    <strong>Confirm your Account</strong>
+    <input type="submit" class="btn btn-warning" value="Confirm" onclick="Varified()" />
+</div>
+<div class="alert alert-success" id="after" style="display:none;">
+    <strong><span class="glyphicon glyphicon-ok"></span>Your Account is Activated Now...!</strong>
+</div>
+<script>
+    function Varified()
+    {
+        $.ajax({
+
+            type: "post",      //Now write the code when the user click the confim button call the 'Varified' funciton that is on the javascript this  pass regId In RegistreConfirm Model Inside User  Controller
+            url: "/User/RegisterConfirm",         // //Copy this RegistreConfirm as same name and create new Method in User Controller Same Name
+            data: { 'regId': '@ViewBag.regID' },  //THis ViewBag.regId is Come from the RegistreController's Confirm Method'
+            success: function (msg)
+            {
+              
+                $("#previous").hide();
+                $("#after").show();
+                alert(msg);
+            }
+        });
+    }
+</script>
+

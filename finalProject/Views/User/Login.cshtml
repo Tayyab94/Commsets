@@ -1,0 +1,115 @@
+﻿
+@model finalProject.Models.LoginModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>OLx-@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <style>
+        #loginDivLog {
+            margin-top: 90px;ww
+        }
+        .modal .modal-dialog modal-body{
+            width:900px;
+        }
+    </style>
+</head>
+<body>
+    @*<div class="row">
+            <div class="col-lg-6 col-md-6">
+                @using (Html.BeginForm("Login", "User", FormMethod.Post))
+                {
+                    <div class="panel" id="loginDivLog">
+                        <div class="panel-heading">
+                            <button type="button" id="btcl" class="close" data-dismiss="panel" aria-label="close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="loginDivLog-label">Login</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="input-group col-lg-12">
+                                    <span class="input-group-addon"><span class="fa fa-user"></span></span>
+                                    @Html.TextBoxFor(m => m.LoginId, new { required = "required", @class = "form-control", placeholder = "Enter Login ID" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                    @Html.TextBoxFor(m => m.Password, new { required = "required", @class = "form-control", placeholder = "Enter your Password", type = "passsword" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>*@
+    @using (Html.BeginForm("Login", "User", new { @class = "form-horizontal", returnurl = ViewBag.ReturnUrl }, FormMethod.Post))
+    {
+        <div class="modal fade" id="loginDivLog" tabindex="-1" role="dialog" aria-labelledby="loginDivLog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h2 class="modal-title text-capitalize text-center" id="exampleModalLabel">Login</h2>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-user"></span></span>
+                                @Html.TextBoxFor(m => m.LoginId, new { required = "required", @class = "form-control", placeholder = "Enter Login ID" })
+                                <span class="form-control-feedback"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-lock"></span></span>
+                                @Html.TextBoxFor(m => m.Password, new { required = "required", @class = "form-control", placeholder = "Enter Login ID",type="password" })
+                                <span class="form-control-feedback"></span>
+                            </div>
+                        </div>
+                            <div class="form-group">
+                                <label style="font-weight:normal" class="checkbox-inline">@Html.CheckBoxFor(m=>m.RememberMe) Remember Me</label>
+                            </div>
+                    </div>
+                    <div class="modal-footer"  style="margin-left:40px; margin-right:40px;">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                            <p style="float:left">If you are new User please @Html.ActionLink("Click Here", "SignIn","User")</p>
+                            <br />
+                            <p>@Html.ActionLink("Forget Password", "forgetPass","User")</p>
+                        </div>
+                       
+                   
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#loginDivLog").modal('show');
+            $(".form-control:required").blur(function () {
+                if ($(this).val() == 0) {
+                    $(this).parent().addClass("has-error");
+                    $(this).parent().removeClass("has-success");
+                    $(this).parent().children().last().html("<span class='glyphicon glyphicon-warning-sign'></span>");
+                } else {
+                    $(this).parent().addClass("has-success");
+                    $(this).parent().removeClass("has-error");
+                    $(this).parent().children().last().html("<span class='glyphicon glyphicon-check'></span>");
+                }
+            })
+        });
+    </script>
+</body>
+</html>
+
+

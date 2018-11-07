@@ -1,0 +1,202 @@
+﻿@model  BusinessLibrary.Classified.Advertisement
+@{
+    ViewBag.Title = "EditPost";
+    Layout = "~/Views/Shared/_ClientView.cshtml";
+}
+
+@section javScript{
+    <script type="text/javascript">
+        function ImgPrevious() {
+            var readrOf = new FileReader();
+            readrOf.readAsDataURL(document.getElementById("file1").files[0]);
+            readrOf.onload = function (oREvent) {
+                document.getElementById("PreviousUpload").src = oREvent.target.result;
+            };
+        };
+    </script>
+
+}
+
+<h2>EditPost</h2>
+
+@using (Html.BeginForm("EditPost", "Advertisement", FormMethod.Post, new { id = "editform", enctype = "multipart/form-data" }))
+{
+    @*<div id="tm">
+            @if (alert != null)
+            {
+                @Html.Partial("/Views/Shared/_AlertViewMoodel.cshtml", alert);
+            }
+        </div>*@
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#GenDos" data-toggle="tab">General</a></li>
+        <li><a href="#DescripttiveDos" data-toggle="tab">Description</a></li>
+        <li><a href="#ImageDos" data-toggle="tab">Image</a></li>
+    </ul>
+    <div class="tab-content">
+        @*General tab Description*@
+
+        <div id="GenDos" class="tab-pane active">
+            <div class="form-group form-inline">
+                <div class="input-group" id="countryDiv">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-map-marker"></span></span>
+                    @Html.DropDownListFor(m => m.City.Province.Country.ID, (SelectList)ViewBag.CountryList, new { @class = "form-control", id = "CountryId" })
+                </div>
+                <div class="input-group" id="stateDiv">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-map-marker"></span></span>
+                        @Html.DropDownListFor(m => m.City.Province.ID, (List<SelectListItem>)ViewBag.ProvinceList, new { @class = "form-control" })
+                </div>
+                <div class="input-group" id="cityDivssss">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-map-marker"></span></span>
+                        @Html.DropDownList("CityId" ,(SelectList)ViewBag.ciList, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-edit"></span></span>
+                    @Html.Editor("Title",Model.Title.ToString(), new { htmlAttributes = new { @class = "form-control" } })
+                    @*@Html.EditorFor(m => m.Title, new { htmlAttributes = new { @class = "form-control" } })*@
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><span>Rs:</span></span>
+                    @Html.Editor("Price",Model.price.ToString(), new { htmlAttributes = new { @class = "form-control" } })
+                    @*@Html.EditorFor(m => m.price, new { htmlAttributes = new { @class = "form-control" } })*@
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    @Html.Editor("ValidUpTO",Model.VilidUpTo.ToLongDateString(), new { htmlAttributes = new { @class = "form-control" ,type="date"} })
+                    @*@Html.EditorFor(x => x.VilidUpTo, "{0:yyyy-MM-dd}", new { htmlAttributes = new { @class = "form-control", type = "date" } })*@
+
+                </div>
+            </div>
+            <div class="form-group form-inline">
+                <div id="catagoryDiv" class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-tag"></span></span>
+                    @*@Html.DropDownList("CatagloryId", (IEnumerable<SelectListItem>)ViewBag.CatagoryList, "- Select Catagory -", new { @class = "form-control" })*@
+                    @Html.DropDownList("Catagory", (SelectList)ViewBag.CatagoryList, new { @class = "form-control" ,id= "CatagloryId" })
+
+                </div>
+                <div id="subCatagoryDiv" class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-map-marker"></span></span>
+                        @Html.DropDownList("SubCatagoryID", (List<SelectListItem>)ViewBag.SubCatagoryList, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group form-inline">
+                    @foreach (var item in (List<SelectListItem>)ViewBag.advType)
+                    {
+                        //var chcked = (item.Selected) ? "checked" : "";
+                        <label style="font-weight:normal;padding-right:10px;">@Html.RadioButtonFor(a=>a.Type,item.Value,item.Selected) @item.Text</label>
+                    }
+                </div>
+                @*<div class="form-group form-inline">
+                    <label style="font-weight:normal">@Html.CheckBox("IsActive") This Advertisement is Active</label>
+                </div>*@
+        </div>
+
+        <div id="DescripttiveDos" class="tab-pane">
+            <h3>Hello Description</h3>
+            @Html.TextArea("Descrip",Model.Description, new { @class = "form-control" })
+        </div>
+
+
+        <div id="ImageDos" class="tab-pane ">
+            <div class="row">
+                <div class="col-lg-2">
+                    @foreach (var item in Model.Images)
+                    {
+                        <img id="PreviousUpload" src="@Url.Content(item.Url)" alt="UserDemo" class="img img-responsive img-thumbnail center-block" style="width:100px" />
+
+                    }
+
+                </div>
+                <div class="col-lg-2">
+
+                    <input type="file" id="file1" name="photo" onchange="ImgPrevious();" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group" style="margin-top:10px 10px;">
+        <input type="reset" class="btn btn-danger glyphicon glyphicon-remove-circle" value="Cancel" />
+        <input type="submit" class="btn btn-success glyphicon glyphicon-save" value="Submit" />
+    </div>
+}
+
+@section mySecript{
+    <script type="text/javascript">
+        //$(document).ready(function () {
+        //    var Cci = $("#CountryId").select("option:selected").val();
+        //    $.ajax(
+        //        {
+        //            url: "/LocatinViewHandle/Province/" + Cci,
+        //            type: "GET"
+        //        }
+        //    ).done(function (res) {
+        //        $("#stateDiv").html(res);
+        //        var ppid = $("Province").select("option:selected").val();
+
+        //        $.ajax({
+        //            url: "/LocatinViewHandle/City/" + ppid,
+        //            type: "GET"
+        //        }
+        //        ).done(function (res1) {
+        //            $("#cityDivssss").html(res1);
+        //        });
+
+        //    });
+        //});
+
+        $(function () {
+            $("#tm").fadeOut(5000);
+            $("#CountryId").change(function () {
+
+                var cid = $(this).select("option:selected").val();
+
+
+                $.ajax(
+                    {
+
+                        url: "/LocatinViewHandle/Province/" + cid,
+                        type: "GET"
+
+                    }
+                ).done(function (result) {
+                    $("#stateDiv").html(result);
+                    $("#Province").change(function () {
+
+                        var pid = $(this).select("option:selected").val();
+
+                        $.ajax({
+                            url: "/LocatinViewHandle/City/" + pid,
+                            type: "GET"
+                        }).done(function (result1) {
+                            $("#cityDivssss").html(result1);
+                        });
+                    });
+                });
+            });
+
+            $("#CatagloryId").change(function () {
+
+                var catId = $(this).select("option:selected").val();
+                //alert(catId);
+                $.ajax({
+
+                    url: "/LocatinViewHandle/SubCatagory/" + catId,
+                    type: "GET"
+                }).done(function (result2) {
+                    $("#subCatagoryDiv").html(result2);
+                })
+            });
+
+
+        });
+    </script>
+
+}
+

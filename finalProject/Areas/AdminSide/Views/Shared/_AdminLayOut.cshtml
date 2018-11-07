@@ -1,0 +1,174 @@
+﻿@using BusinessLibrary.UserManagement;
+@using BusinessLibrary.Classified;
+@using finalProject.Models;
+
+@{
+    IEnumerable<CatagoryModel> catagory = new CatagoryHendler().getAllCatagories().ToSelectCataList();
+}
+
+
+@{
+    User CurrentUser = (User)Session[WebUtil.CURRENT_USER];
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    @*<link href="~/Content/Advertise.css" rel="stylesheet" />*@
+    @RenderSection("mystyle", false)
+    @RenderSection("javScript", false)
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid head">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainmenue">
+                    <span class="glyphicon glyphicon-circle-arrow-down"></span>
+                </button>
+
+                <a href="/Home1/Index">
+                    <img src="~/Images/OLX_Logo.png" class="img-responsive img-rounded navbar-brand" />
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="mainmenue">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/AdminSide/Home/Index">Home</a></li>
+                    <li><a href="#">Featured</a></li>
+                    @if (catagory.Count() > 0)
+                    {
+                        <li class="dropdown ApniDropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-content">
+                                @foreach (var item in catagory)
+                                {
+                                    <li><a href="/Home1/CatById/@item.Id" style="color:black">@item.Name</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+
+                    <li><a href="/Advertisement/PostAdvertisement">Post Advertisement</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (CurrentUser == null)
+                    {
+                        <li><a href="/User/SignIn"><span class="glyphicon glyphicon-user"></span>&nbsp;Sign In</a></li>
+                        <li><a href="/User/Login"><span class="glyphicon glyphicon-user"></span>&nbsp;LogIn</a></li>
+                    }
+                    else
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="@Url.Content(CurrentUser.ImgURL)" width="50" height="25" class="img-rounded" /> <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li style="text-align:center;padding:10px;height:145px;width:280px; background-color:rgb(158, 176, 46)"><img src="@Url.Content(CurrentUser.ImgURL)" width="80" height="75" class="img-circle" />
+                                 <p>Mr @CurrentUser.FullName - Web Develope</p>
+                                </li>
+                                <li style="padding:10px;background-color:#f9f9f9; height:35px">
+                                    <div class="pull-left"><a href="/User/UserProfile/@CurrentUser.ID" style="color:black"><span class="glyphicon glyphicon-user"></span> Profile</a></div>
+                                    <div class="pull-right"><a href="/User/Logout" style="color:black"><span class="glyphicon glyphicon-off"></span> Logout</a></div>
+                                </li>
+
+                                @*<li><a href="/User/UserProfile/@CurrentUser.ID" style="color:black"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                                <li><a href="/User/ChangePass/@CurrentUser.ID" id="" style="color:black"><span class="glyphicon glyphicon-lock"></span> Change Password</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/User/Logout" style="color:black"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>*@
+                            </ul>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="container-fluid" style="padding:0px;">
+        @RenderSection("banner", false)
+    </header>
+    <div class="container-fluid" id="mainContent">
+        <div class="row" style="margin-top:36px;">
+            <div class="col-lg-3 col-md-4 col-sm-5">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-toggle right " id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span class="glyphicon glyphicon-off" style="background: white; border-radius: 19px; padding: 8px;margin-bottom: 10px; float:right"></span>
+                            </a>
+                            <ul class="dropdown-menu  dropdown-menu-right" aria-labelledby="dropdownMenu1" style="margin-top:22px;">
+                                <li><a href="/User/UserProfile/@CurrentUser.ID" style="color:black"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                                <li><a href="/User/ChangePass/@CurrentUser.ID" id="" style="color:black"><span class="glyphicon glyphicon-lock"></span> Change Password</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/User/Logout" style="color:black"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                            </ul>
+                        </div>
+                        <h2 class="text-capitalize text-info">@CurrentUser.FullName</h2>
+
+                        @if (CurrentUser != null)
+                        {
+                            <img src="@Url.Content(CurrentUser.ImgURL)" class="img-circle img-responsive center-block" style="height:80px;margin-top:40px; border-bottom-style:double;" />
+
+                        }
+                    </div>
+                    <div class="panel-body" style="background-color:rgb(41, 121, 121); opacity:0.6">
+                        <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#CountryDiv" aria-expanded="false" aria-controls="CountryDiv"><span class="glyphicon glyphicon-globe"></span> Country Section</button>
+                        <div class="collapse" id="CountryDiv">
+                            <ul class="list-group">
+                                <li class="list-group-item">@Html.ActionLink("Add Country", "AddCounty", new { area = "", Controller = "Country" })</li>
+                                <li class="list-group-item"><a href="/Country/ShowCountry">Show Countries</a></li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#CityDiv" aria-expanded="false" aria-controls="CountryDiv" style="margin-top:10px;"><span class="glyphicon glyphicon-globe"></span> City Section</button>
+                        <div class="collapse" id="CityDiv">
+                            <ul class="list-group">
+                                <li class="list-group-item">@Html.ActionLink("Add City", "AddCity", new { area = "", Controller = "City" })</li>
+                                <li class="list-group-item"><a href="/City/ShowCities">Show Cities</a></li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#ProvinceDiv" aria-expanded="false" aria-controls="CountryDiv" style="margin-top:10px;"><span class="glyphicon glyphicon-globe"></span> Province Section</button>
+                        <div class="collapse" id="ProvinceDiv">
+                            <ul class="list-group">
+                                <li class="list-group-item">@Html.ActionLink("Add Province", "AddProvince", new { area = "", Controller = "Province" })</li>
+                                <li class="list-group-item"><a href="/Province/ShowProvince">Show Province</a></li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#CataDiv" aria-expanded="false" aria-controls="CountryDiv" style="margin-top:10px;"><span class="glyphicon glyphicon-tag"></span> Catagory Section</button>
+                        <div class="collapse" id="CataDiv">
+                            <ul class="list-group">
+                                <li class="list-group-item">@Html.ActionLink("Add Catagory", "Create", new { area = "", Controller = "Catagory" })</li>
+                                <li class="list-group-item"><a href="/Catagory/showAllCatagories">Show Province</a></li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#subCataDiv" aria-expanded="false" aria-controls="CountryDiv" style="margin-top:10px;"><span class="glyphicon glyphicon-tag"></span> Sub-Catagory Section</button>
+                        <div class="collapse" id="subCataDiv">
+                            <ul class="list-group">
+                                <li class="list-group-item">@Html.ActionLink("Add SubCatagory", "AddSubCatagory", new { area = "", Controller = "SubCatagory" })</li>
+                                <li class="list-group-item"><a href="/SubCatagory/ShowAllSubCatagories">Show SubCatagory</a></li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#OrdrDiv" aria-expanded="false" aria-controls="OrdrDiv" style="margin-top:10px;"><span class="glyphicon glyphicon-tasks"></span>&nbsp;Order Status</button>
+                        <div class="collapse" id="OrdrDiv">
+                            <ul class="list-group">
+                                <li class="list-group-item">@Html.ActionLink("Pendding Orders", "PenddingPost", new { area = "AdminSide", Controller = "Home" })</li>
+                               
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9col-md-8 col-sm-7">
+                @RenderBody()
+            </div>
+        </div>
+
+
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @RenderSection("mySecript", false)
+</body>
+</html>

@@ -1,0 +1,135 @@
+﻿body {
+    margin:0;
+    padding:0;
+}
+.mainContainer{
+    font-family:Calibri sans-serif;
+    font-weight:bold;
+    text-align:center;
+    margin-top:60px;
+}
+.MyFrame{
+    border:none;
+    width:100%;
+    padding:0;
+}
+/*-------------------------------- contact section -------------------------*/
+
+.contactUs {
+    position: fixed;
+    bottom: 0;
+    background-color:rgba(44, 35, 35, 0.6);
+    padding: 20px 10px 10px 10px;
+    margin: 0px 30px 10px 30px;
+    border-radius: 40px;
+    box-shadow: 0px 1px 16px 3px #ffd800;
+    color: white;
+    font-size: 19px;
+    text-align: left;
+    visibility:visible;
+        /*-moz-transition:all ease-out 0.5s;
+        -webkit-transition:all ease-out 0.5s;*/
+        -moz-transition: width ease-out 0.5s , background-color ease-in 1s ;
+}
+
+.contactUs:hover{
+        background-color:#c4990c; 
+        /*width:52em;
+        max-width:52em;*/
+        -moz-transition:all ease-out 0.5s;
+        -webkit-transition:all ease-out 0.5s;
+        -moz-transition: width ease-out 0.5s , background-color ease-out 1s ;
+}
+
+.contactUs:hover address{
+    -webkit-animation:rotateForBac 0.5s linear;
+}
+.contactUs:hover h3{
+    -webkit-animation:rotateForBac 0.5s linear;
+    -moz-animation:rotateForBac 0.5s linear;
+}
+
+
+.intro {
+    position: fixed;
+    right: 0;
+    top:90px;
+    background-color:rgba(44, 35, 35, 0.6);
+    padding: 10px 30px 10px 30px;
+    margin: 0px 30px 10px 30px;
+    border-radius: 30px;
+    box-shadow: 0px 1px 16px 3px #78ff00;
+    color: white;
+    font-size: 19px;
+    text-align: left;
+    visibility:visible;
+        /*-moz-transition:all ease-out 0.5s;
+        -webkit-transition:all ease-out 0.5s;*/
+        -moz-transition: width ease-out 0.5s , background-color ease-in 1s ;
+}
+
+.intro:hover{
+        background-color:#10a30a; 
+        /*width:52em;
+        max-width:52em;*/
+        -moz-transition:all ease-out 0.5s;
+        -webkit-transition:all ease-out 0.5s;
+        -moz-transition: width ease-out 0.5s , background-color ease-out 1s ;
+}
+
+.intro:hover h3{
+    -webkit-animation:rotateForBac 0.5s linear;
+    -moz-animation:rotateForBac 0.5s linear;
+}
+
+
+
+/*partners shit*/
+.partners {
+    position: fixed;
+    right: 0;
+    top:260px;
+    background-color:rgba(44, 35, 35, 0.6);
+    padding: 10px 30px 10px 30px;
+    margin: 0px 30px 10px 30px;
+    border-radius: 30px;
+    box-shadow: 0px 1px 16px 3px #13f5d2;
+    color: white;
+    font-size: 19px;
+    text-align: left;
+    visibility:visible;
+        /*-moz-transition:all ease-out 0.5s;
+        -webkit-transition:all ease-out 0.5s;*/
+        -moz-transition: width ease-out 0.5s , background-color ease-in 1s ;
+}
+.partners:hover{
+        background-color:#157087; 
+        /*width:52em;
+        max-width:52em;*/
+        -moz-transition:all ease-out 0.5s;
+        -webkit-transition:all ease-out 0.5s;
+        -moz-transition: width ease-out 0.5s , background-color ease-out 1s ;
+}
+
+.partners:hover h3{
+    -webkit-animation:rotateForBac 0.5s linear;
+    -moz-animation:rotateForBac 0.5s linear;
+}
+
+
+
+
+@-webkit-keyframes rotateForBac {
+    0%   {-webkit-transform:rotate(0deg); }
+    25%  {-webkit-transform:rotate(-7.5deg); }
+    50%  {-webkit-transform:rotate(0deg);}
+    75%  {-webkit-transform:rotate(7.5deg);}
+    100% {-webkit-transform:rotate(0deg);}
+}
+@-moz-keyframes rotateForBac {
+     0%   {-webkit-transform:rotate(0deg); }
+    25%  {-webkit-transform:rotate(0deg); }
+    50%  {-webkit-transform:rotate(-7deg);}
+    75%  {-webkit-transform:rotate(8deg);}
+    100% {-webkit-transform:rotate(0deg);}
+}

@@ -1,0 +1,54 @@
+﻿@*@model IEnumerable<BusinessLibrary.Country>*@
+
+@using BusinessLibrary;
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Country>
+
+
+@{
+    ViewBag.Title = "ShowCountry";
+    Layout = "~/Areas/AdminSide/Views/Shared/_AdminLayOut.cshtml";
+}
+
+<h2>ShowCountry</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AddCounty","Country", new { @class="btn btn-info"})
+</p>
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Code</th>
+        <th>Edit/Delete</th>
+      
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, null)
+
+            @Html.ActionLink("Delete", "Delete", "Country", new { id = item.ID }, null)
+
+        </td>
+    </tr>
+}
+
+</table>
+<div></div>
+Page @(Model.PageCount<Model.PageNumber?0:Model.PageNumber)/@Model.PageCount
+<div>
+    @Html.PagedListPager(Model, Page => Url.Action("ShowCountry", new { Page = Page }))
+</div>

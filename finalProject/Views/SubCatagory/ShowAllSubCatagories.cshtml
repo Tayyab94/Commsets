@@ -1,0 +1,37 @@
+﻿@model IEnumerable<BusinessLibrary.Classified.SubCatagory>
+@{
+    ViewBag.Title = "ShowAllSubCatagories";
+    Layout = "~/Areas/AdminSide/Views/Shared/_AdminLayOut.cshtml";
+}
+
+<h2>ShowAllSubCatagories</h2>
+<div class="row">
+
+    @Html.ActionLink("Add new SubCatagory", "AddSubCatagory", "SubCatagory", new { @class = "btn btn-primary" })
+    <table class="table table-responsive table-hover">
+        <thead class="bg-primary">
+            <tr>
+                <th class="text-center">@Html.DisplayNameFor(m => m.ID)</th>
+                <th class="text-center">@Html.DisplayNameFor(m => m.Name)</th>
+                <th class="text-center">@Html.DisplayNameFor(m => m.Catagory)</th>
+                <th class="text-center">Edit/Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center">@Html.DisplayFor(m => item.ID)</td>
+                    <td class="text-center">@Html.DisplayFor(m => item.Name)</td>
+                    <td class="text-center">@Html.DisplayFor(m => item.Catagory.Name)</td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditSubCatagories", "SubCatagory", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) |
+                    @Html.ActionLink("Delete", "DelSubCatagories", "SubCatagory", new { id = item.ID }, new { @class = "glyphicon glyphicon-trash" })
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+

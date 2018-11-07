@@ -1,0 +1,63 @@
+﻿@using BusinessLibrary.UserManagement;
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@model PagedList.IPagedList<User>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/AdminSide/Views/Shared/_AdminLayOut.cshtml";
+
+    //List<User> lis = ViewBag.U_list;
+}
+@Html.ActionLink("THis is", "OldPost", new { area = "AdminSide", Controller = "Home" })
+
+<div class="panel">
+    <div class="panel-heading bg-primary">
+        <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#userDiv" aria-expanded="false" aria-controls="CountryDiv" style="margin-top:10px;"><span class="glyphicon glyphicon-tag"></span>User's Detail</button>
+    </div>
+    <div class="panel-body collapse" id="userDiv">
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+
+                    <th class="text-center">Full Name</th>
+                    <th class="text-center">Edit/Delete</th>
+                    <th class="text-center">Edit/Delete</th>
+                    <th class="text-center">User's Detail</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">@item.FullName</td>
+
+                                <td class="text-center"><img src="@Url.Content(item.ImgURL)" class="img-responsive img-thumbnail" style="width:50px; height:55px" /></td>
+                                <td class="text-center">
+                                    <a href="/User/EditUser/@item.ID"><span class="glyphicon glyphicon-edit"></span></a>
+                                    @*@Html.ActionLink("Edit","EditUser", new { id = item.ID , area="", Controller= "User" }, new { @class = "glyphicon glyphicon-edit" })*@ |
+                                    <a href="/User/DeleteUser/@item.ID"><span class="glyphicon glyphicon-remove-sign"></span></a>
+                                    @* @Html.ActionLink("Delete", "DeleteUser", "User", new { id = item.ID }, new { @class = "glyphicon glyphicon-remove" })*@
+                                </td>
+                                <td class="text-center"> <a href="/User/userDetai/@item.ID"><span class="glyphicon glyphicon-user" style="font-size:20px"></span></a></td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+        <div></div>
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+        <div>
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,64 @@
+﻿@model BusinessLibrary.Classified.Catagory
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/AdminSide/Views/Shared/_AdminLayOut.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12 col-md-6">
+        <p>@Html.ActionLink("Show Catagory", "showAllCatagories", "Catagory", new { @class = "btn btn-primary" })</p>
+        <div class="panel">
+            <div class="panel-heading bg-primary">
+                <h3 class="panel-title text-center">Add Catagory</h3>
+            </div>
+            @using (Html.BeginForm("Create", "Catagory", FormMethod.Post))
+            {
+                <div class="panel-body">
+
+                    @Html.AntiForgeryToken()
+                 
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Name, "Catagory Name", new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.Name, null, new { @class = "form-control", placeholder = "Catagory Name ", required = "required" })
+                                @*@Html.ValidationMessageFor(m => m.Name, null, new { @class="text-danger"})*@
+                                <span class="form-control-feedback"></span>
+                              
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <div class="col-md-offset-3 col-md-9">
+                            <input type="submit" value="Save" name="submit" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@section mySecript
+{
+     
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".form-control:required").blur(function () {
+                if ($(this).val() == 0) {
+                    alert("hello Something is wrong");
+                    $(this).parent().addClass("has-error");
+                    $(this).parent().removeClass("has-success");
+                    $(this).parent().children().last().html("<span class='glyphicon glyphicon-warning-sign'></span>");
+                } else {
+                    $(this).parent().addClass("has-success");
+                    $(this).parent().removeClass("has-error");
+                    $(this).parent().children().last().html("<span class='glyphicon glyphicon-check'></span>");
+                }
+            });
+
+        });
+
+    </script>
+}

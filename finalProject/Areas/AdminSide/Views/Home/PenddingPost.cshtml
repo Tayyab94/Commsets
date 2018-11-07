@@ -1,0 +1,50 @@
+﻿@model IEnumerable<BusinessLibrary.Classified.Advertisement>
+@using finalProject.Models;
+@{
+    ViewBag.Title = "PenddingPost";
+    Layout = "~/Areas/AdminSide/Views/Shared/_AdminLayOut.cshtml";
+    AlertModel postStatusMsg = (AlertModel)TempData["ApproavedStatusPost"];
+}
+
+<h2>PenddingPost</h2>
+@{
+    if (postStatusMsg != null)
+    {
+        @Html.Partial("/Views/Shared/_AlertViewMoodel.cshtml", postStatusMsg);
+    }
+    if (Model == null)
+    {
+        <h2>No Pendding Advertisement</h2>
+    }
+    else
+    {
+        <table class="table table-responsive table-condensed">
+            <thead class="bg-primary">
+                <tr>
+                    <th>ID</th>
+                    <th>Image</th>
+                    <th>Status</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td> @Html.DisplayFor(m => item.ID)</td>
+                        @foreach (var i in item.Images)
+                        {
+                            <th><img src="@Url.Content(i.Url)" class="img-responsive" style="width:200px" /></th>
+                        }
+                        <td>
+                            @*<a href="/Advertisement/ApproavedPostStatus/@item.ID" class="btn btn-info btn-sm">@item.Status.Name</a>*@
+
+                            @Html.ActionLink("DetailPost", "DetailPost", new { area = "AdminSide", Controller = "Home", id = item.ID })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+

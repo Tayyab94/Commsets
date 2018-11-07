@@ -1,0 +1,93 @@
+﻿@using BusinessLibrary.UserManagement;
+@using BusinessLibrary.Classified;
+@using finalProject.Models;
+
+@{
+    IEnumerable<CatagoryModel> catagory = new CatagoryHendler().getAllCatagories().ToSelectCataList();
+}
+
+
+@{
+    User CurrentUser = (User)Session[WebUtil.CURRENT_USER];
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=decive-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    @*<link href="~/Content/Advertise.css" rel="stylesheet" />*@
+    @RenderSection("mystyle", false)
+    @RenderSection("javScript", false)
+
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid head">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainmenue">
+                    <span class="glyphicon glyphicon-circle-arrow-down"></span>
+                </button>
+
+                <a href="/Home1/Index">
+                    <img src="~/Images/OLX_Logo.png" class="img-responsive img-rounded navbar-brand" />
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="mainmenue">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/Home1/Index">Home</a></li>
+                    <li><a href="#">Featured</a></li>
+                    @if (catagory.Count() > 0)
+                    {
+                        <li class="dropdown ApniDropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-content">
+                                @foreach (var item in catagory)
+                                {
+                                    <li><a href="/Home1/CatById/@item.Id" style="color:black">@item.Name</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+
+                    <li><a href="/Advertisement/PostAdvertisement">Post Advertisement</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (CurrentUser == null)
+                    {
+                        <li><a href="/User/SignIn"><span class="glyphicon glyphicon-user"></span>&nbsp;Sign In</a></li>
+                        <li><a href="/User/Login"><span class="glyphicon glyphicon-user"></span>&nbsp;LogIn</a></li>
+                    }
+                    else
+                    {
+                        <li class="dropdown ApniDropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="@Url.Content(CurrentUser.ImgURL)" width="50" height="25" class="img-rounded" /> <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-content">
+                                <li><a href="/User/UserProfile/@CurrentUser.ID" style="color:black"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                                <li><a href="/User/ChangePass/@CurrentUser.ID" id="" style="color:black"><span class="glyphicon glyphicon-lock"></span> Change Password</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/User/Logout" style="color:black"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                            </ul>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="container-fluid" style="padding:0px;">
+        @RenderSection("banner", false)
+    </header>
+    <div class="container-fluid" id="mainContent">
+        @RenderBody()
+
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @RenderSection("mySecript", false)
+</body>
+</html>

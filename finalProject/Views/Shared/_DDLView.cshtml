@@ -1,0 +1,3 @@
+﻿@model finalProject.Models.DDLViewModel
+    <span class="input-group-addon"><span class="@Model.Glyphicon"></span></span>
+@Html.DropDownList(Model.Name,Model.values,Model.Caption,new { @class="form-control"})

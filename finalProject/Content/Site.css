@@ -1,0 +1,107 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/*DropDown Style */
+.dropdown-content {
+    display: none;
+}
+
+.ApniDropdown:hover .dropdown-content {
+    display: block;
+}
+
+/*Head style*/
+.head {
+    background-color: rgb(158, 176, 46);
+}
+.head .navbar-header a{
+    color:white;
+}
+    .head .navbar-header a:hover {
+       
+        box-shadow:#ff6a00 2px 4px 2px;
+      
+    }
+
+    .head .navbar-collapse ul li a {
+        color: white;
+     
+    }
+
+.head .navbar-collapse ul li a:hover {
+            color: #418a8a;
+            box-shadow: #ff6a00 0px 4px 2px; 
+
+}
+
+.UpdateFrmField{
+    margin-top:7px;
+}
+.advsum-item {
+    padding: 15px;
+    margin: 15px 0px;
+    border: solid 1px #e4e4e4;
+    text-align: center;
+}
+.advsum-item h2{
+    padding:10px 0px;
+    margin:0px;
+}
+
+/*css for post slide button */
+.post {
+    position: relative;
+    cursor: pointer;
+}
+    .post advsum-item img{
+        display:block;
+    }
+
+.post-s {
+    width: 0px;
+    background: #b7e09f80;
+    position: absolute;
+    top: 15px;
+    bottom:9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: 0.7s ease;
+}
+    .post-s input {
+        background:rgb(158, 176, 46);
+        padding: 10px 30px;
+    }
+
+.sh:hover .post-s {
+    width: 91%;
+    height: 96%;
+}
+.UsrM{
+    border: 0px;
+    background: white;
+    border: 0px;
+    padding: 4px 6px 0px 3px;
+}
+
+    .UsrM:hover {
+        background-color: white;
+    }
+
+.uAdvPst a {
+    background: white;
+    border-radius: 19px;
+    padding: 8px;
+    margin-bottom: 10px;
+    float: right
+}
+

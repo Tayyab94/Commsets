@@ -1,0 +1,10 @@
+﻿@using finalProject.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_ClientView.cshtml";
+    List<AdvSumModel> newAdvertisements = ViewBag.NewAdvs;
+}
+
+<h2>Index</h2>
+@Html.Partial("~/Views/Advertisement/_AdvSumList.cshtml", newAdvertisements)
+

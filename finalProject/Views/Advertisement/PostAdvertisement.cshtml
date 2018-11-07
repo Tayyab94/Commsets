@@ -1,0 +1,149 @@
+﻿@using finalProject.Models
+@{
+    ViewBag.Title = "PostAdvertisement";
+    Layout = "~/Views/Shared/_ClientView.cshtml";
+    AlertModel alert = (AlertModel)TempData["PostAlertMessage"];
+}
+
+<h2>PostAdvertisement</h2>
+@using (Html.BeginForm("PostAdvertisement", "Advertisement", FormMethod.Post, new { id = "PostAdvForm", enctype = "multipart/form-data" }))
+{
+    <div id="tm">
+        @if (alert != null)
+        {
+        @Html.Partial("/Views/Shared/_AlertViewMoodel.cshtml", alert);
+        }
+    </div>
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#GenDos" data-toggle="tab">General</a></li>
+        <li><a href="#DescripttiveDos" data-toggle="tab">Description</a></li>
+        <li><a href="#ImageDos" data-toggle="tab">Image</a></li>
+    </ul>
+    <div class="tab-content">
+        @*General tab Description*@
+
+        <div id="GenDos" class="tab-pane active">
+            <h3>Hello Genral</h3>
+            <div class="form-group form-inline">
+                <div class="input-group" id="countryDiv">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-map-marker"></span></span>
+                    @Html.DropDownList("CountryId", (IEnumerable<SelectListItem>)ViewBag.CountryList, "- Select Country -", new { @class = "form-control" })
+                </div>
+                <div class="input-group" id="stateDiv"></div>
+                <div class="input-group" id="cityDivssss"></div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-edit"></span></span>
+                    @Html.TextBox("advTitle", null, new { @class = "form-control", placeholder = "Enter Title" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><span>Rs:</span></span>
+                    @Html.TextBox("advPrice", null, new { @class = "form-control", placeholder = "Enter Price " })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    @Html.TextBox("advValidity", null, new { @class = "form-control", type = "date" })
+                </div>
+            </div>
+            <div class="form-group form-inline">
+                <div id="catagoryDiv" class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-tag"></span></span>
+                    @Html.DropDownList("CatagloryId", (IEnumerable<SelectListItem>)ViewBag.CatagoryList, "- Select Catagory -", new { @class = "form-control" })
+                </div>
+                <div id="subCatagoryDiv" class="input-group"></div>
+            </div>
+            <div class="form-group form-inline">
+                @foreach (var item in (List<SelectListItem>)ViewBag.advType)
+                {
+                    <label style="font-weight:normal;padding-right:10px;">@Html.RadioButton("advTpye", item.Value, item.Selected)@item.Text</label>
+                }
+            </div>
+            <div class="form-group form-inline">
+                @foreach (var item in new List<SelectListItem>{ new SelectListItem { Text="BSIT",Value="1"},new SelectListItem
+                { Text="MSIT", Value="2"} })
+                {
+                    <label style="font-weight:normal;padding-right:10px;">@Html.RadioButton("advTpye", item.Value, item.Selected)@item.Text</label>
+                }
+                <br />
+            </div>
+            <div class="form-group form-inline">
+                <label style="font-weight:normal">@Html.CheckBox("IsActive") This Advertisement is Active</label>
+            </div>
+        </div>
+
+        <div id="DescripttiveDos" class="tab-pane">
+            <h3>Hello Description</h3>
+            @Html.TextArea("Description", new { @class = "form-control", rows = 15, placeholder = "Description of the Advertisement" })
+        </div>
+
+
+        <div id="ImageDos" class="tab-pane ">
+            <h3>Hello Imagesral</h3>
+            <input type="file" id="file1" name="photo" />
+        </div>
+    </div>
+    <div class="form-group" style="margin-top:10px 10px;">
+        <input type="reset" class="btn btn-danger glyphicon glyphicon-remove-circle" value="Cancel" />
+        <input type="submit" class="btn btn-success glyphicon glyphicon-save" value="Submit" />
+    </div>
+}
+
+@section mySecript{
+    <script type="text/javascript">
+        $(function () {
+            $("#tm").fadeOut(5000);
+            $("#CountryId").change(function () {
+                var Cna = $("#CountryId option:selected").text();
+
+                alert(Cna);
+                var cid = $(this).select("option:selected").val();
+                
+
+
+                $.ajax(
+                    {
+
+                        url: "/LocatinViewHandle/Province/" + cid,
+                        type: "GET"
+
+                    }
+                ).done(function (result) {
+                    $("#stateDiv").html(result);
+                    $("#Province").change(function () {
+
+                        var pid = $(this).select("option:selected").val();
+
+                        $.ajax({
+                            url: "/LocatinViewHandle/City/" + pid,
+                            type: "GET"
+                        }).done(function (result1) {
+                            $("#cityDivssss").html(result1);
+                        });
+                    });
+                });
+            });
+
+            $("#CatagloryId").change(function () {
+                    
+                var catId = $(this).select("option:selected").val();
+                //alert(catId);
+                $.ajax({
+
+                    url: "/LocatinViewHandle/SubCatagory/" + catId,
+                    type: "GET"
+                }).done(function (result2) {
+                    $("#subCatagoryDiv").html(result2);
+                })
+            });
+
+
+        });
+    </script>
+
+}

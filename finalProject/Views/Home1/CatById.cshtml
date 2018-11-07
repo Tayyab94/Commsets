@@ -1,0 +1,16 @@
+﻿@using finalProject.Models;
+@{
+    ViewBag.Title = "CatById";
+    Layout = "~/Views/Shared/_ClientView.cshtml";
+    List<AdvSumModel> ad = ViewBag.Cat;
+}
+
+<h2>@ViewBag.CataName</h2>
+@{ 
+    if(ad==null)
+    {
+        <h4>Sorry...!No Catagory is found</h4>
+    }
+}
+@Html.Partial("~/Views/Shared/_CatagoryView.cshtml", ad)
+

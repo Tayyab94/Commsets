@@ -1,0 +1,23 @@
+﻿@using finalProject.Models
+
+@model IEnumerable<AdvSumModel>
+
+@if (Model != null)
+{
+    foreach (var n in Model)
+    {
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 sh">
+            <div class="advsum-item post">
+                <img src="@n.ImgUrl" alt="Product" class="img-thumbnail img-responsive" style="height:250px"/>
+                <h2>@n.Title</h2>
+                <p>@($"PKR.{n.Price}")</p>
+                <div class="advsum-btn bg-primary">@($"Posted Date :{n.postedDate.ToShortDateString()}")</div>
+                <h4>@n.Status</h4>
+            </div>
+            <div class="post-s">
+                <a href="/Advertisement/DetailProduct/@n.Id" class="btn btn-primary btn-lg">Detail</a>
+              
+            </div>
+        </div>
+    }
+}

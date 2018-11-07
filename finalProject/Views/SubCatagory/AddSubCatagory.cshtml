@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "AddSubCatagory";
+    Layout = "~/Areas/AdminSide/Views/Shared/_AdminLayOut.cshtml";
+}
+
+<h2>AddSubCatagory</h2>
+<div class="row">
+
+    @using (Html.BeginForm("AddSubCatagory", "SubCatagory", FormMethod.Post))
+    {
+        <div class="form-horizontal">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+
+                @Html.Label("SubCatagory", new { @class = "label-control col-md-3" })
+                <div class="col-md-9">
+                    @Html.TextBox("sCataName", null, new { @class = "form-control", placeholder = "SubCatagory", required = "required" })
+                    <span class="form-control-feedback col-md-pull-2"></span>
+                </div>
+            </div>
+            <div class="form-group">
+
+                @Html.Label("Catagory", new { @class = "label-control col-md-3" })
+                <div class="col-md-9">
+                    @Html.DropDownList("catagoryList", null, "- Select SubCatagory -", htmlAttributes: new { @class = "form-control" })
+                    <span class="form-control-feedback col-md-pull-2"></span>
+                </div>
+            </div>
+            <div class="col-md-9 col-md-offset-3">
+                <input type="submit" value="Save" name="submitSubCatagory" class="btn btn-primary" />
+            </div>
+        </div>
+    }
+</div>
+@section mySecript{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".form-control:required").blur(function () {
+                if ($(this).val() == 0) {
+                    $(this).parent().addClass("has-error");
+                    $(this).parent().removeClass("has-success");
+                    $(this).parent().children().html("<span class='glyphicon glyphicon-warning-sign'></span>");
+
+                }
+                else {
+                    $(this).parent().addClass("has-success");
+                    $(this).parent().removeClass("has-error");
+                    $(this).parent().children().html("<span class='glyphicon glyphicon-check'></span>");
+                }
+            });
+
+        });
+
+    </script>
+
+}
+

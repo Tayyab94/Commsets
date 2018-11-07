@@ -1,0 +1,175 @@
+﻿@model BusinessLibrary.UserManagement.User
+@using finalProject.Models;
+@{
+    ViewBag.Title = "EditUser";
+    //Layout = "~/Views/Shared/_ClientView.cshtml";
+    Layout = "~/Areas/AdminSide/Views/Shared/_AdminLayOut.cshtml";
+    AlertModel alert = (AlertModel)TempData["userUpdateAlert"];
+}
+@*@section c{
+        <script type="text/javascript">
+            function previousImage() {
+
+                var oFReader = new FileReader();
+                oFReader.readAsDataURL(document.getElementById("imgLink").files[0]);
+
+                oFReader.onload = function (oREvent) {
+                    document.getElementById("UploadPrevious").src = oREvent.target.result;
+                };
+            };
+            function ShowPass() {
+                var pass = document.getElementById('Password');
+                if (document.getElementById('showHiddenPassword').checked) {
+
+                    pass.setAttribute('type', 'text');
+                }
+                else {
+                    pass.setAttribute('type', 'Password');
+                }
+            }
+        </script>
+
+    }*@
+
+@*In this div we have shown the update the alert Message*@
+<div class="row">
+    <div class="col-lg-6">
+        @if (alert != null)
+        {
+            @Html.Partial("/Views/Shared/_AlertViewMoodel.cshtml", alert);
+        }
+    </div>
+</div>
+
+        <h2 class="text-info text-center">EditUser</h2>
+        @using (Html.BeginForm("EditUser", "User", FormMethod.Post, new { id = "UpdateSignInFrm", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="panel">
+                <div class="panel-heading ">
+                    <div class="form-group">
+                        <img id="UploadPrevious" src="@Url.Content(Model.ImgURL)" alt="UserDemo" class="img img-responsive img-thumbnail center-block" style="width:100px" />
+                        @*<label class="control-label col-md-3">UpLoad Image</label>
+                            <div class="col-md-9 col-md-pull-1">
+
+                            </div>*@
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            @*Image Upload div*@
+                            <label>Uplaod Image</label>
+                            <input type="file" id="imgLink" class="form-inline" name="imgLink" accept=".png,.jpg,.jpeg" onchange="previousImage();" style="margin-top:6px;" />
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.FullName, "Full Name", htmlAttributes: new { @class = "control-label col-md-3 UpdateFrmField" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(m => m.FullName, new { htmlAttributes = new { @class = "form-control UpdateFrmField" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            @Html.LabelFor(m => m.EmailID, "Email Address", htmlAttributes: new { @class = "control-label col-md-3 UpdateFrmField" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(m => m.EmailID, new { htmlAttributes = new { @class = "form-control UpdateFrmField" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group frmField">
+                            @Html.LabelFor(m => m.LoginId, "Login ID", htmlAttributes: new { @class = "control-label col-md-3 UpdateFrmField" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(m => m.LoginId, new { htmlAttributes = new { @class = "form-control UpdateFrmField" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ContactNo, "Contact No", htmlAttributes: new { @class = "control-label col-md-3 UpdateFrmField" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(m => m.ContactNo, new { htmlAttributes = new { @class = "form-control UpdateFrmField" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            @Html.LabelFor(m => m.Password, "Password", htmlAttributes: new { @class = "control-label col-md-3 UpdateFrmField" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control UpdateFrmField", type = "password", id = "Password" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-3 col-md-9">
+                                <input type="checkbox" id="showHiddenPassword" onclick="ShowPass();" /> Show Password
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+
+                        @*Show the Date formet in the edit form
+                            @Html.TextBoxFor(m => m.StartDate,new { @Value = Model.StartDate.ToString("yyyy/MM/dd"), @class = "datepicker" })*@
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.DOB, "Date of Birth", htmlAttributes: new { @class = "control-label col-md-3 UpdateFrmField" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(m => m.DOB, "{0:yyyy-MM-dd}", new { htmlAttributes = new { @class = "form-control UpdateFrmField", type = "date" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.City, "City", htmlAttributes: new { @class = "control-label col-md-3 UpdateFrmField" })
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(m => m.City.ID, (SelectList)ViewBag.usrCityList, new { @class = "form-control UpdateFrmField" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Address, "Address", htmlAttributes: new { @class = "control-label col-md-3 UpdateFrmField" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(m => m.Address, new { htmlAttributes = new { @class = "form-control UpdateFrmField" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.SecurityQuestion, "Security Question", htmlAttributes: new { @class = "control-label col-md-3 UpdateFrmField" })
+
+                            <div class="col-md-9">
+                                @Html.EditorFor(m => m.SecurityQuestion, new { htmlAttributes = new { @class = "form-control UpdateFrmField" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.SecurityAns, "Security Answer", htmlAttributes: new { @class = "control-label col-md-3 UpdateFrmField" })
+
+                            <div class="col-md-9">
+                                @Html.EditorFor(m => m.SecurityAns, new { htmlAttributes = new { @class = "form-control UpdateFrmField", type = "TextArea" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-9 col-md-offset-3" style="margin-top:20px">
+                                <button type="submit" class="btn" style="background-color:rgba(220, 216, 13, 0.54)"><span class="fa fa-pencil-square">&nbsp;UpDate</span></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+@section mySecript{
+    <script type="text/javascript">
+        function previousImage() {
+
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("imgLink").files[0]);
+
+            oFReader.onload = function (oREvent) {
+                document.getElementById("UploadPrevious").src = oREvent.target.result;
+            };
+        };
+        function ShowPass() {
+            var pass = document.getElementById('Password');
+            if (document.getElementById('showHiddenPassword').checked) {
+
+                pass.setAttribute('type', 'text');
+            }
+            else {
+                pass.setAttribute('type', 'Password');
+            }
+        }
+    </script>
+
+
+}

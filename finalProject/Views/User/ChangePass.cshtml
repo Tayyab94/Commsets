@@ -1,0 +1,58 @@
+﻿@model finalProject.Models.ChangePasswordModel
+@using finalProject.Models
+@{
+    ViewBag.Title = "ChangePass";
+    Layout = "~/Views/Shared/_ClientView.cshtml";
+    //int usrId =(int)ViewBag.UserId;
+    AlertModel alert = (AlertModel)TempData["PasUpdateAlert"]; // ye kia hay ?
+}
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-lg-offset-3 col-md-offset-3" style="margin-top:30px">
+        <div>
+            @if (alert != null)
+            {
+                @Html.Partial("/Views/Shared/_AlertViewMoodel.cshtml", alert);
+            }
+        </div>
+
+        @using (Html.BeginForm(""))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.UserId)
+            <div class="form-horizontal">
+                <h4 class="text-capitalize text-center text-primary">Change Password</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CurrentPass, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CurrentPass, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CurrentPass, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NewPass, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NewPass, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NewPass, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ConfPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ConfPassword, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ConfPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+

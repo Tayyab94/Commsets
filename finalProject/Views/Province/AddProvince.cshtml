@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "AddProvince";
+    Layout = "~/Areas/AdminSide/Views/Shared/_AdminLayOut.cshtml";
+}
+
+<h2>AddProvince</h2>
+<div class="row">
+    <div class="col-md-12">
+    
+
+
+            @using (Html.BeginForm("AddProvince","Province", FormMethod.Post))
+            {
+                <div class="form-horizontal">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label class="control-label col-lg-2 sr-only">Province Name</label>
+                        <div class="col-md-10">
+                            @Html.TextBox("provinceName", null, new { @class = "form-control", placeholder = "Enter Province Name" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2 sr-only">Country</label>
+                        <div class="col-md-10">
+                            @Html.DropDownList("countriesList",null,"- Select County -",htmlAttributes:new {@class="form-control"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <input class="btn btn-primary" type="submit" value="Save" />
+                            <a href="/Country/ShowCountry" class="btn btn-primary">Show Country</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
